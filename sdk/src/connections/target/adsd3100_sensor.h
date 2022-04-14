@@ -152,6 +152,16 @@ class Adsd3100Sensor : public aditof::DepthSensorInterface,
                 },
                 4096, 2304,
             },
+	    {"qmp_onephase",	//Added to test one phase
+		{
+		    {"raw", 512, 1536},
+		    {"ir", 512, 512},
+		    {"xyz", 512, 512},
+		    {"depth", 512, 512},
+		    {"embedded_header", 1, 128}
+		},
+		4096, 192,
+	    },
 
         };
 };
