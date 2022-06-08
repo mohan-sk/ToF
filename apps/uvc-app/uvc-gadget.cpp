@@ -162,6 +162,11 @@ static const struct uvc_frame_info uvc_frames_yuyv[] = {
         {666666, 1000000, 5000000, 0},
     },
     {
+        4096,
+        192,
+        {666666, 1000000, 5000000, 0},
+    },
+    {
         0,
         0,
         {0},
@@ -1884,12 +1889,8 @@ int main(int argc, char *argv[]) {
 
   //aditof::Status status;
   /* Set default frame type */
-  if (mode == 5) {
-    status = camDepthSensor->setFrameType(depthSensorFrameTypes[3]);
-  }
-  else {
-    status = camDepthSensor->setFrameType(depthSensorFrameTypes[mode]);
-  }
+  status = camDepthSensor->setFrameType(depthSensorFrameTypes[mode]);
+  
   if (status != aditof::Status::OK) {
     printf("Failed to set frame type\n");
   }
