@@ -252,7 +252,7 @@ void handleClientRequest(const char *in_buf, const size_t in_len,
     }
 
     case uvc_payload::FunctionName::ADSD3500_READ_CMD: {
-        std::string controlName = request.func_strings_param(0);
+        //std::string controlName = request.func_strings_param(0);
         uint16_t cmd = static_cast<uint32_t>(request.func_int32_param(0));
         uint16_t *data = new uint16_t;
 
@@ -266,10 +266,14 @@ void handleClientRequest(const char *in_buf, const size_t in_len,
     }
 
     case uvc_payload::FunctionName::ADSD3500_WRITE_CMD: {
-        std::string controlName = request.func_strings_param(0);
+        //std::string controlName = request.func_strings_param(0);
         uint16_t cmd = static_cast<uint16_t>(request.func_int32_param(0));
         uint16_t data = static_cast<uint16_t>(request.func_int32_param(1));
 
+        aditof::Status status = camDepthSensor->adsd3500_write_cmd(cmd, data);   
+
+        if(cmd == 0x32 && data == 0x02)
+            data = 0x00;
         aditof::Status status = camDepthSensor->adsd3500_write_cmd(cmd, data);
 
         response.set_status(static_cast<::uvc_payload::Status>(status));
