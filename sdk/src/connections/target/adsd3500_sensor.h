@@ -188,6 +188,32 @@ class Adsd3500Sensor : public aditof::DepthSensorInterface,
          {"embedded_header", 1, 128}},
         2560,
         640,
-    }};
+        },
+        # this is for 9 subframes
+        {"vga-9",
+        {{"raw", 1024, 2880},
+        {"ir", 512, 640},
+        {"embedded_header", 1, 128}},
+        1024,
+        2880,
+        },
+        {
+        # this is for 3 subframes
+        "vga-3",
+        {{"raw", 1024, 960},
+        {"ir", 512, 640},
+        {"embedded_header", 1, 128}},
+        1024,
+        960,
+        },
+        {
+        # this is for AB only
+        "vga-ab",
+        {{"raw", 512, 640},
+        {"ir", 512, 640},
+        {"embedded_header", 1, 128}},
+        512,
+        640,
+        }};
 #endif
 };
