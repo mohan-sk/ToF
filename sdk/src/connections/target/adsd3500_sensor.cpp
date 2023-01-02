@@ -790,6 +790,20 @@ aditof::Status Adsd3500Sensor::adsd3500_read_cmd(uint16_t cmd, uint16_t *data) {
     static struct v4l2_ext_controls extCtrls;
     static uint8_t buf[ADSD3500_CTRL_PACKET_SIZE];
 
+    uint8_t Buf[] = {0x01, 0x00, 0x10, 0xAD, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00,
+    0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+     extCtrl.p_u8 = Buf;
+
+     if (xioctl(dev->sfd, VIDIOC_S_EXT_CTRLS, &extCtrls) == -1) {
+         LOG(WARNING) << "Reading Adsd3500 error 1" << "errno: " << errno << "error: " << strerror(errno);
+         return Status::GENERIC_ERROR;
+     }
+
+    memset(&extCtrls, 0, sizeof(struct v4l2_ext_controls));
+    extCtrls.controls = &extCtrl;
+    extCtrls.count = 1;
+
     extCtrl.size = ADSD3500_CTRL_PACKET_SIZE;
     extCtrl.id = V4L2_CID_AD_DEV_CHIP_CONFIG;
     memset(&extCtrls, 0, sizeof(struct v4l2_ext_controls));
@@ -846,7 +860,17 @@ aditof::Status Adsd3500Sensor::adsd3500_write_cmd(uint16_t cmd, uint16_t data) {
     memset(&extCtrls, 0, sizeof(struct v4l2_ext_controls));
     extCtrls.controls = &extCtrl;
     extCtrls.count = 1;
+    
+    uint8_t Buf[] = {0x01, 0x00, 0x10, 0xAD, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00,
+    0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
+    extCtrl.p_u8 = Buf;
+
+    if (xioctl(dev->sfd, VIDIOC_S_EXT_CTRLS, &extCtrls) == -1) {
+        LOG(WARNING) << "Reading Adsd3500 error 1" << "errno: " << errno << "error: " << strerror(errno);
+        return Status::GENERIC_ERROR;
+    }
+     
     buf[0] = 1;
     buf[1] = 0;
     buf[2] = 4;
