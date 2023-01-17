@@ -189,7 +189,7 @@ class Adsd3500Sensor : public aditof::DepthSensorInterface,
         2560,
         640,
         },
-        # this is for 9 subframes
+        //# this is for 9 subframes
         {"vga-9",
         {{"raw", 1024, 2880},
         {"ir", 512, 640},
@@ -198,7 +198,7 @@ class Adsd3500Sensor : public aditof::DepthSensorInterface,
         2880,
         },
         {
-        # this is for 3 subframes
+        //# this is for 3 subframes
         "vga-3",
         {{"raw", 1024, 960},
         {"ir", 512, 640},
@@ -207,7 +207,7 @@ class Adsd3500Sensor : public aditof::DepthSensorInterface,
         960,
         },
         {
-        # this is for AB only
+        //# this is for AB only
         "vga-ab",
         {{"raw", 512, 640},
         {"ir", 512, 640},

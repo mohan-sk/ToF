@@ -860,7 +860,7 @@ aditof::Status Adsd3500Sensor::adsd3500_write_cmd(uint16_t cmd, uint16_t data) {
     memset(&extCtrls, 0, sizeof(struct v4l2_ext_controls));
     extCtrls.controls = &extCtrl;
     extCtrls.count = 1;
-    
+    /*    
     uint8_t Buf[] = {0x01, 0x00, 0x10, 0xAD, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00,
     0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
@@ -870,7 +870,7 @@ aditof::Status Adsd3500Sensor::adsd3500_write_cmd(uint16_t cmd, uint16_t data) {
         LOG(WARNING) << "Reading Adsd3500 error 1" << "errno: " << errno << "error: " << strerror(errno);
         return Status::GENERIC_ERROR;
     }
-     
+    */ 
     buf[0] = 1;
     buf[1] = 0;
     buf[2] = 4;
@@ -879,12 +879,13 @@ aditof::Status Adsd3500Sensor::adsd3500_write_cmd(uint16_t cmd, uint16_t data) {
     buf[5] = uint8_t(data >> 8);
     buf[6] = uint8_t(data & 0xFF);
     extCtrl.p_u8 = buf;
-
+    LOG(WARNING) << std::hex << cmd << " " << data << std::endl;
     if (xioctl(dev->sfd, VIDIOC_S_EXT_CTRLS, &extCtrls) == -1) {
         LOG(WARNING) << "Reading Adsd3500 error "
                      << "errno: " << errno << " error: " << strerror(errno);
         return Status::GENERIC_ERROR;
     }
+    LOG(WARNING) << "Command sent to Pulsatrix " << std::endl;
     return status;
 }
 
