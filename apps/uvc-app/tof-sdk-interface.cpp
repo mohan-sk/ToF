@@ -272,15 +272,16 @@ void handleClientRequest(const char *in_buf, const size_t in_len,
 	//uint16_t data;
 	
 	//memcpy(&data, request.func_bytes_param(0).c_str(), sizeof(uint16_t));
-        //aditof::Status status = camDepthSensor->adsd3500_write_cmd(cmd, data);   
-
+        //std::cout << "data is " << request.func_bytes_param(0) << std::endl;         
         if(cmd == 0x32 && data == 0x02)
             data = 0x00;
 	
+        //std::cout << "cmd : " << std::hex << cmd << " and data : " << std::hex << data << std::endl;
+
 	aditof::Status status = camDepthSensor->adsd3500_write_cmd(cmd, data);
         
-	std::cout << "cmd : " << std::hex << cmd << " and data : " << std::hex << data << std::endl;
-        LOG(WARNING) << cmd << " " << data << std::endl; 
+	//std::cout << "cmd : " << std::hex << cmd << " and data : " << std::hex << data << std::endl;
+        //LOG(WARNING) << cmd << " " << data << std::endl; 
         response.set_status(static_cast<::uvc_payload::Status>(status));
         //std::cout << "Response : " << std::hex << std::endl;
         break;
